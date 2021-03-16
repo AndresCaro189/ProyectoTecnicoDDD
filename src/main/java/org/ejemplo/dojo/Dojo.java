@@ -6,6 +6,7 @@ import org.ejemplo.dojo.entity.Estudiante;
 import org.ejemplo.dojo.event.DojoAbierto;
 import org.ejemplo.dojo.event.DojoCreado;
 import org.ejemplo.dojo.event.EstudianteCreado;
+import org.ejemplo.dojo.event.EstudianteEliminado;
 import org.ejemplo.dojo.implement.Calificacion;
 import org.ejemplo.dojo.implement.NombreEstudiante;
 import org.ejemplo.dojo.value.DojoId;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 public class Dojo extends AggregateEvent<DojoId> {
     protected Set<Estudiante> estudiantes;
+    protected EstudianteId estudianteId;
     protected NombreEstudiante nombreEstudiante;
     protected Nombre nombre;
     protected Boolean abierto;
@@ -44,7 +46,7 @@ public class Dojo extends AggregateEvent<DojoId> {
     }
 
     public void eliminarEstudiante(EstudianteId estudianteId){
-
+        appendChange(new EstudianteEliminado(estudianteId));
     }
 
     public void actualizarEstudiante(EstudianteId estudianteId, Nombre nombre){
