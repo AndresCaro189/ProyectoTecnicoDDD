@@ -1,6 +1,9 @@
 package org.ejemplo.dojo;
 
 import co.com.sofka.domain.generic.EventChange;
+import org.ejemplo.dojo.event.DojoAbierto;
+import org.ejemplo.dojo.event.DojoCreado;
+import org.ejemplo.dojo.event.EstudianteCreado;
 
 import java.util.HashSet;
 
@@ -13,7 +16,15 @@ public class DojoChange extends EventChange {
         });
 
         apply((DojoAbierto event)-> {
-            //TODO: cambiar el valor del estado
+            dojo.abierto = Boolean.TRUE;
+            dojo.estudiantes = new HashSet<>();
+            dojo.nombre = event.getNombre();
+        });
+
+        apply((EstudianteCreado event)->{
+            dojo.abierto = Boolean.TRUE;
+            dojo.estudiantes = new HashSet<>();
+            dojo.nombreEstudiante = event.getNombreEstudiante();
         });
     }
 }

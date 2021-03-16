@@ -1,4 +1,4 @@
-package org.ejemplo.dojo;
+package org.ejemplo.dojo.implement;
 
 import co.com.sofka.domain.generic.ValueObject;
 

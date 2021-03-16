@@ -1,14 +1,23 @@
 package org.ejemplo.dojo;
 
-import co.com.sofka.domain.annotation.Aggregate;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
+import org.ejemplo.dojo.entity.Estudiante;
+import org.ejemplo.dojo.event.DojoAbierto;
+import org.ejemplo.dojo.event.DojoCreado;
+import org.ejemplo.dojo.event.EstudianteCreado;
+import org.ejemplo.dojo.implement.Calificacion;
+import org.ejemplo.dojo.implement.NombreEstudiante;
+import org.ejemplo.dojo.value.DojoId;
+import org.ejemplo.dojo.value.EstudianteId;
+import org.ejemplo.dojo.implement.Nombre;
 
 import java.util.List;
 import java.util.Set;
 
 public class Dojo extends AggregateEvent<DojoId> {
     protected Set<Estudiante> estudiantes;
+    protected NombreEstudiante nombreEstudiante;
     protected Nombre nombre;
     protected Boolean abierto;
 
@@ -30,9 +39,8 @@ public class Dojo extends AggregateEvent<DojoId> {
     }
 
 
-    public void agregarEstudiante(Nombre nombre){
-        var estudianteId = new EstudianteId();
-        //TODO: crear el evento y modificar los cambios de estado (DojoChange) agregar la nueva entidad
+    public void agregarEstudiante(EstudianteId estudianteId){
+        appendChange(new EstudianteCreado(nombreEstudiante));
     }
 
     public void eliminarEstudiante(EstudianteId estudianteId){
@@ -48,6 +56,6 @@ public class Dojo extends AggregateEvent<DojoId> {
     }
 
     public void abrirElDojo(){
-        appendChange(new DojoAbierto()).apply();
+        appendChange(new DojoAbierto(nombre)).apply();
     }
 }
